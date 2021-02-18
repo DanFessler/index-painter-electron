@@ -185,7 +185,7 @@ class PanelGroup extends React.Component {
 
   getCursor() {
     if (this.state.dragging) {
-      return this.props.direction === "row" ? "col-resize" : "row-resize";
+      return this.props.direction === "row" ? "ns-resize" : "ew-resize";
     } else {
       return "auto";
     }

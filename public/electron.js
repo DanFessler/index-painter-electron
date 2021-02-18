@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 
@@ -19,8 +19,8 @@ function createWindow() {
     transparent: false,
     webPreferences: {
       nodeIntegration: true,
-      nativeWindowOpen: true,
-    },
+      nativeWindowOpen: true
+    }
   });
 
   // Load from localhost if in development
@@ -33,8 +33,19 @@ function createWindow() {
 
   // Open DevTools if in dev mode
   if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: "detach" });
+    // mainWindow.webContents.openDevTools({ mode: "detach" });
   }
+
+  ipcMain.on("MINIMIZE", () => {
+    mainWindow.minimize();
+  });
+  ipcMain.on("MAXIMIZE", () => {
+    if (mainWindow.isMaximized()) mainWindow.unmaximize();
+    else mainWindow.maximize();
+  });
+  ipcMain.on("CLOSE", () => {
+    mainWindow.close();
+  });
 }
 
 // Create a new browser window by invoking the createWindow
@@ -43,8 +54,8 @@ function createWindow() {
 app.whenReady().then(() => {
   if (isDev) {
     installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((error) => console.log(`An error occurred: , ${error}`));
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(error => console.log(`An error occurred: , ${error}`));
   }
 
   createWindow();

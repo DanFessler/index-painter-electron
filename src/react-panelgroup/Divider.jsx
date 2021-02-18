@@ -10,7 +10,7 @@ function Divider({
   className
 }) {
   function getCursor() {
-    return direction === "row" ? "col-resize" : "row-resize";
+    return direction === "row" ? "ew-resize" : "ns-resize";
   }
 
   function getPropertyName(type, inverse) {

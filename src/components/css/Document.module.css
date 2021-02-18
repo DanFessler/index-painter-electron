@@ -10,9 +10,9 @@
   flex-grow: 1;
   position: relative;
   overflow: hidden;
-  background-color: rgb(40, 40, 40);
-  box-shadow: 0 0 1px black inset;
-  /* background-color: var(--secondary); */
+  /* background-color: rgb(40, 40, 40); */
+  /* box-shadow: 0 0 1px black inset; */
+  background-color: var(--borderColor);
   /* margin: 3px; */
   /* margin-top: 2px; */
 }

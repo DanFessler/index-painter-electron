@@ -22,7 +22,7 @@ class DocumentContainer extends React.Component {
               value: workspace
             });
           }}
-          spacing={3}
+          spacing={1}
           active={state.documents.activeDocument}
           onActive={documentId => {
             dispatch({
@@ -31,6 +31,7 @@ class DocumentContainer extends React.Component {
             });
           }}
           hideMenus
+          hideTabs={state.documents.views.length <= 1}
         >
           {state.documents.views.map((view, i) => (
             <Document

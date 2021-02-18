@@ -9,7 +9,7 @@ class DocumentPreview extends React.Component {
 
   static defaultProps = {
     id: "preview",
-    title: "Preview"
+    title: "PREVIEW"
   };
 
   getState(key) {

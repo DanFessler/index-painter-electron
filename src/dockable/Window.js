@@ -32,7 +32,7 @@ class Window extends Component {
     ];
     let size = widget.props.minHeight ? widget.props.minHeight : 0;
     return (
-      size + 32 // content size // tab bar
+      size + 36 // content size // tab bar
     );
   };
   handleContextClick = e => {
@@ -208,6 +208,20 @@ class TabBar extends Component {
                       >
                         {child.props.title || child.props.id}
                       </span>
+
+                      {!this.props.hideMenu && (
+                        <div
+                          className={css.burgerMenuContainer}
+                          onClick={onContextClick}
+                          style={
+                            {
+                              // width: i === selected ? 32 : 0
+                            }
+                          }
+                        >
+                          <div className={css.burgerMenu} />
+                        </div>
+                      )}
                       {child.props.closeable ? (
                         <div
                           className={css.closeBox}
@@ -226,11 +240,11 @@ class TabBar extends Component {
             </div>
             {/* </div> */}
             {/* <div className={css.tabSpacer} /> */}
-            {!this.props.hideMenu && (
+            {/* {!this.props.hideMenu && (
               <div className={css.burgerMenuContainer} onClick={onContextClick}>
                 <div className={css.burgerMenu} />
               </div>
-            )}
+            )} */}
           </div>
         )}
       </Droppable>

@@ -13,7 +13,7 @@ class History extends React.Component {
 
   static defaultProps = {
     id: "history",
-    title: "History",
+    title: "HISTORY",
     actions: widget => [
       {
         type: "actions",

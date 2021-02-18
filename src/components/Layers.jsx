@@ -6,7 +6,7 @@ import { EyeIcon } from "../icons";
 class LayerTest extends React.Component {
   static defaultProps = {
     id: "layers",
-    title: "Layers"
+    title: "LAYERS"
   };
 
   state = {
@@ -49,12 +49,15 @@ class Layers extends React.Component {
         {this.props.layers.map((layer, i) => {
           return (
             <div
+              key={i}
               className={[
                 css.layerRow,
                 this.props.selected === i ? css.selected : ""
               ].join(" ")}
               onClick={() => this.props.onSelect(i)}
             >
+              <div className={css.thumb}></div>
+              <div style={{ flexGrow: 1, textAlign: "left" }}>{layer.name}</div>
               <div
                 className={css.visibility}
                 onClick={e => {
@@ -65,12 +68,10 @@ class Layers extends React.Component {
                 <EyeIcon
                   style={{
                     width: 16,
-                    fill: layer.visible ? "white" : "transparent"
+                    fill: layer.visible ? "white" : "rgba(255,255,255,0.125)"
                   }}
                 />
               </div>
-              <div className={css.thumb}></div>
-              {layer.name}
             </div>
           );
         })}

@@ -237,8 +237,8 @@ class App extends React.Component {
                   style={{
                     flexGrow: 1,
                     // maxWidth: "100%"
-                    maxWidth: `calc(100% - 46px)`,
-                    margin: "1px"
+                    maxWidth: `calc(100% - 47px)`,
+                    margin: "1px 0 0 1px"
                   }}
                 >
                   <Dockable
@@ -249,7 +249,7 @@ class App extends React.Component {
                         workspace: workspace
                       })
                     }
-                    spacing={3}
+                    spacing={1}
                     hidden={this.getState().widgets.hidden}
                   >
                     {this.getWidgets()}

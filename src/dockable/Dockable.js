@@ -267,6 +267,7 @@ class Dockable extends Component {
                 onTabClosed={this.handleTabClosed}
                 spacing={this.props.spacing || 0}
                 hideMenus={this.props.hideMenus}
+                hideTabs={this.props.hideTabs}
                 active={this.props.active}
                 onActive={this.handleOnActive}
                 tabHeight={this.props.tabHeight}

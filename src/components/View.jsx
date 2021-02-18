@@ -6,10 +6,11 @@ function View({ canvas, position, zoom }) {
   const canvasRef = useRef();
 
   useEffect(() => {
-    canvas.addView(canvasRef.current.getContext("2d"));
+    let ctx = canvasRef.current.getContext("2d");
+    canvas.addView(ctx);
     canvas.draw();
 
-    return () => canvas.removeView(canvasRef.current.getContext("2d"));
+    return () => canvas.removeView(ctx);
   }, [canvas]);
 
   return (

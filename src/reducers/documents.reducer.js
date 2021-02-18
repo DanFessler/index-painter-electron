@@ -17,14 +17,14 @@ const initialState = {
   views: [],
   canvases: [],
   workspace: [],
-  activeDocument: 0,
+  activeDocument: 0
 };
 
 const handlers = {
   CREATE_NEW_DOCUMENT: (state, { title, width, height }) => {
     let threeCanvas = new ThreeCanvas(width, height, [
       [0, 0, 0],
-      [256, 256, 256],
+      [256, 256, 256]
     ]);
 
     state.canvases.push(
@@ -33,7 +33,7 @@ const handlers = {
         palette: threeCanvas.palette,
         layerData: threeCanvas.getLayerData(),
         selectedColor: 1,
-        count: 1,
+        count: 1
       })
     );
 
@@ -41,13 +41,13 @@ const handlers = {
       id: docId++,
       title: title,
       canvas: state.canvases.length - 1,
-      canvasPos: { x: 0, y: 0, zoom: 3 },
+      canvasPos: { x: 0, y: 0, zoom: 3 }
     });
   },
   CREATE_NEW_DOCUMENT_VIEW: (state, action) => {
     let view = {
       ...findView(state.views, state.activeDocument),
-      id: docId++,
+      id: docId++
     };
     state.canvases[view.canvas].count++;
 
@@ -63,7 +63,7 @@ const handlers = {
       state.canvases = state.canvases.filter((canvas, i) => i !== view.canvas);
     }
 
-    state.views = state.views.filter((view) => view.id !== id);
+    state.views = state.views.filter(view => view.id !== id);
     state.activeDocument = state.views.length
       ? state.views[state.views.length - 1].id
       : null;
@@ -73,11 +73,11 @@ const handlers = {
   },
   SET_DOCUMENT_WORKSPACE: (state, action) => {
     state.workspace = action.value;
-  },
+  }
 };
 
 function findView(documents, id) {
-  return documents.find((doc) => doc.id === id);
+  return documents.find(doc => doc.id === id);
 }
 
 function createDocument(state, document) {
@@ -89,10 +89,10 @@ function createDocument(state, document) {
           {
             selected: 0,
             // hideTabs: true,
-            widgets: [],
-          },
-        ],
-      },
+            widgets: []
+          }
+        ]
+      }
     ];
   }
 
@@ -105,7 +105,7 @@ function createDocument(state, document) {
 }
 
 function documentHandler(state = initialState, action, id) {
-  return produce(state, (draft) => {
+  return produce(state, draft => {
     // perform shared-concern actions
     if (action && handlers.hasOwnProperty(action.type)) {
       return handlers[action.type](draft, action);

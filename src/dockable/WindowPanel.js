@@ -166,7 +166,7 @@ class WindowPanel extends Component {
                     tabId
                   );
                 }}
-                hideTabs={thisWindow.hideTabs}
+                hideTabs={thisWindow.hideTabs || this.props.hideTabs}
                 hideMenu={this.props.hideMenus}
                 style={thisWindow.style}
                 tabHeight={this.props.tabHeight}

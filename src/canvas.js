@@ -12,7 +12,7 @@ const gradientFrag = raw("./shaders/gradient.frag");
 const indexFrag = raw("./shaders/index.frag");
 const pixelateFrag = raw("./shaders/pixelate.frag");
 
-var bayerTexture = new Three.TextureLoader().load(bayerTextureURL);
+var bayerTexture = new Three.TextureLoader().load(bayerTextureURL.default);
 bayerTexture.wrapS = Three.RepeatWrapping;
 bayerTexture.wrapT = Three.RepeatWrapping;
 bayerTexture.magFilter = Three.NearestFilter;
@@ -41,7 +41,7 @@ class Canvas {
 
     this.renderer = new Three.WebGLRenderer({
       preserveDrawingBuffer: true,
-      autoClear: false,
+      autoClear: false
     });
     this.renderer.setSize(width, height);
     this.size = { x: width, y: height };
@@ -107,7 +107,7 @@ class Canvas {
         color: { value: new Three.Color(1, 1, 1) },
         alpha: { value: 1.0 },
         hardness: { value: 1.0 },
-        indexMatrix4x4: { value: bayerTexture },
+        indexMatrix4x4: { value: bayerTexture }
       },
       brushFrag,
       true
@@ -115,21 +115,21 @@ class Canvas {
     this.pixelateFilter = new Filter(
       {
         size: { value: 64 },
-        map: { value: this.bufferB.texture },
+        map: { value: this.bufferB.texture }
       },
       pixelateFrag
     );
     this.debugFilter = new Filter(
       {
         size: { value: 64 },
-        map: { value: this.bufferB.texture },
+        map: { value: this.bufferB.texture }
       },
       gradientFrag
     );
     this.indexFilter = new Filter(
       {
         map: { value: this.bufferB.texture },
-        palette: { value: this.paletteTexture },
+        palette: { value: this.paletteTexture }
       },
       indexFrag
     );
@@ -139,13 +139,13 @@ class Canvas {
         indexMatrix4x4: { value: bayerTexture },
         canvasSize: { value: new Three.Vector2(width, height) },
         palette: { value: this.paletteTexture },
-        paletteSize: { value: 12 },
+        paletteSize: { value: 12 }
       },
       ditherFrag
     );
     this.blitDrawLayer = new Filter(
       {
-        map: { value: this.drawLayer.texture },
+        map: { value: this.drawLayer.texture }
       },
       blitFrag
     );
@@ -153,10 +153,10 @@ class Canvas {
     // line material
     this.lineMat = new Three.LineBasicMaterial({
       color: 0xff00ff,
-      linewidth: 20,
+      linewidth: 20
       // transparent: true,
       // opacity: 1,
-      dashed: false,
+      // dashed: false
       // vertexColors: true
     });
 
@@ -196,7 +196,7 @@ class Canvas {
     if (this.drawIndexed) {
       this.drawFilters([
         this.blitDrawLayer.material,
-        this.ditherFilter.material,
+        this.ditherFilter.material
         // this.indexFilter.material
       ]);
     } else {
@@ -208,7 +208,7 @@ class Canvas {
 
   updateViews() {
     // draw the result to each canvas 2d view
-    this.views.forEach((view) => {
+    this.views.forEach(view => {
       view.drawImage(this.renderer.domElement, 0, 0);
     });
   }
@@ -233,7 +233,7 @@ class Canvas {
   }
 
   removeView(context) {
-    this.views = this.views.filter((view) => view !== context);
+    this.views = this.views.filter(view => view !== context);
   }
 
   beginStroke(pos, brush, index) {
@@ -250,9 +250,7 @@ class Canvas {
     return {
       ...brush,
       flow: brush.flowPressure ? brush.flow * pressure : brush.flow,
-      size: brush.sizePressure
-        ? Math.max(brush.size * pressure, 1)
-        : brush.size,
+      size: brush.sizePressure ? Math.max(brush.size * pressure, 1) : brush.size
     };
   }
 
@@ -274,7 +272,7 @@ class Canvas {
     // push the image data to the history stack
     this.history.push({
       action: action,
-      data: this.getLayerData(),
+      data: this.getLayerData()
     });
     this.historyPointer++;
 
@@ -303,7 +301,7 @@ class Canvas {
   getHistory() {
     return {
       pointer: this.historyPointer,
-      history: this.history.map((change) => change.action),
+      history: this.history.map(change => change.action)
     };
   }
 
@@ -348,12 +346,12 @@ class Canvas {
     }
   };
 
-  pushLayerData = (data) => {
+  pushLayerData = data => {
     this.blitImageData(data, this.drawLayer);
     this.draw();
   };
 
-  setHistory = (pointer) => {
+  setHistory = pointer => {
     this.historyPointer = pointer;
     this.blitImageData(this.history[this.historyPointer].data, this.drawLayer);
     this.draw();
@@ -535,7 +533,7 @@ class Canvas {
 
   drawLine(points) {
     const newPoints = points.map(
-      (point) => new Three.Vector3(point.x, point.y, 0)
+      point => new Three.Vector3(point.x, point.y, 0)
     );
     const geometry = new Three.BufferGeometry().setFromPoints(newPoints);
     const line = new Three.Line(geometry, this.lineMat);
@@ -590,7 +588,7 @@ class Filter {
     return new Three.ShaderMaterial({
       uniforms: this.defaultUniforms,
       vertexShader: planeVert,
-      fragmentShader: this.glsl,
+      fragmentShader: this.glsl
     });
   }
 }
