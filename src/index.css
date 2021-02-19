@@ -44,13 +44,13 @@ svg {
 }
 
 :root {
-  --primary: rgba(70, 70, 70, 1);
-  --primaryAlpha: rgba(70, 70, 70, 0.5);
+  --primary: rgba(75, 75, 75, 1);
+  --primaryAlpha: rgba(75, 75, 75, 0.5);
   --secondary: rgb(60, 60, 60);
   --text: #e6e6e6;
   --textAlpha: #e6e6e680;
-  --borderColor: #2a2a2a;
-  --windowRadius: 3px;
+  --borderColor: #2c2c2c;
+  --windowRadius: 2px;
 }
 
 ::-webkit-scrollbar {

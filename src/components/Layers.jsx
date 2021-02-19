@@ -6,7 +6,7 @@ import { EyeIcon } from "../icons";
 class LayerTest extends React.Component {
   static defaultProps = {
     id: "layers",
-    title: "LAYERS"
+    title: "Layers"
   };
 
   state = {

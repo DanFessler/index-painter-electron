@@ -11,31 +11,31 @@ class Window extends Component {
     {
       type: "actions",
       actions: {
-        "Default Thing": function() {
+        "Default Thing": function () {
           console.log("I did the default thing");
         },
-        "Another Default Thing": function() {
+        "Another Default Thing": function () {
           console.log("I did another default thing");
-        }
-      }
-    }
+        },
+      },
+    },
   ];
   static defaultProps = {
-    padding: 8
+    padding: 8,
   };
   componentDidUpdate() {
     this.props.onTabSwitch(this.getSize(this.props.selected));
   }
-  getSize = tab => {
+  getSize = (tab) => {
     let widget = React.Children.toArray(this.props.children)[
       tab !== undefined ? tab : this.props.selected
     ];
     let size = widget.props.minHeight ? widget.props.minHeight : 0;
     return (
-      size + 36 // content size // tab bar
+      size + 34 // content size // tab bar
     );
   };
-  handleContextClick = e => {
+  handleContextClick = (e) => {
     let ref = this.widgetRef.current;
     let actions = ref.props.actions
       ? ref.props.actions.call(ref, ref).concat(this.defaultActions)
@@ -61,7 +61,7 @@ class Window extends Component {
         style={{
           width: this.containerRef.current.getBoundingClientRect().width,
           top: this.containerRef.current.getBoundingClientRect().top - 9,
-          left: this.containerRef.current.getBoundingClientRect().left
+          left: this.containerRef.current.getBoundingClientRect().left,
         }}
       />
     ) : null,
@@ -77,10 +77,10 @@ class Window extends Component {
             this.containerRef.current.getBoundingClientRect().top +
             this.containerRef.current.getBoundingClientRect().height -
             9,
-          left: this.containerRef.current.getBoundingClientRect().left
+          left: this.containerRef.current.getBoundingClientRect().left,
         }}
       />
-    ) : null
+    ) : null,
   ];
 
   render() {
@@ -154,7 +154,7 @@ class TabBar extends Component {
         // boxShadow: snapshot.isDragging
         //   ? "0 1px 10px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.25)"
         //   : `1px -1px 0 #353535, -1px -1px 0 #353535`,
-        borderRadius: snapshot.isDragging ? 1 : 0
+        borderRadius: snapshot.isDragging ? 1 : 0,
       };
     }
     return (
@@ -191,7 +191,7 @@ class TabBar extends Component {
                       className={`${css.tab} ${
                         i === selected ? css.active : ""
                       }`}
-                      onMouseDown={e => {
+                      onMouseDown={(e) => {
                         onTabClick(i, child.props.id);
                         e.stopPropagation();
                       }}
@@ -203,29 +203,30 @@ class TabBar extends Component {
                           fontWeight:
                             i === selected && child.props.id === active
                               ? "bold"
-                              : "normal"
+                              : "normal",
                         }}
                       >
                         {child.props.title || child.props.id}
                       </span>
 
-                      {!this.props.hideMenu && (
+                      {/* {!this.props.hideMenu && (
                         <div
                           className={css.burgerMenuContainer}
                           onClick={onContextClick}
                           style={
                             {
-                              // width: i === selected ? 32 : 0
+                              width: i === selected && !snapshot.isDragging ? 32 : 0
                             }
                           }
                         >
                           <div className={css.burgerMenu} />
                         </div>
-                      )}
+                      )} */}
+
                       {child.props.closeable ? (
                         <div
                           className={css.closeBox}
-                          onClick={e => {
+                          onClick={(e) => {
                             if (child.props.onClose)
                               child.props.onClose(child.props.id);
                             this.props.onClose(i);
@@ -240,11 +241,11 @@ class TabBar extends Component {
             </div>
             {/* </div> */}
             {/* <div className={css.tabSpacer} /> */}
-            {/* {!this.props.hideMenu && (
+            {!this.props.hideMenu && (
               <div className={css.burgerMenuContainer} onClick={onContextClick}>
                 <div className={css.burgerMenu} />
               </div>
-            )} */}
+            )}
           </div>
         )}
       </Droppable>

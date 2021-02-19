@@ -22,7 +22,7 @@ import { TOOLS } from "./constants.js";
 import MenuBar from "./components/MenuBar.jsx";
 import ToolBar from "./components/ToolBar.jsx";
 import PropertyBar from "./components/PropertyBar.jsx";
-import History from "./components/History.jsx";
+import History, { Snapshots } from "./components/History.jsx";
 import Layers from "./components/Layers.jsx";
 import CanvasProperties from "./components/CanvasProperties.jsx";
 import DocumentContainer from "./components/DocumentContainer.jsx";
@@ -55,11 +55,11 @@ class App extends React.Component {
       type: "CREATE_NEW_DOCUMENT",
       title: "New Document 1",
       width: 512,
-      height: 256
+      height: 256,
     });
   }
 
-  handleKeyDown = e => {
+  handleKeyDown = (e) => {
     switch (e.key) {
       case " ":
         this.dispatch({ type: "SET_MODIFIER", key: "spaceKey", value: true });
@@ -85,7 +85,7 @@ class App extends React.Component {
     }
   };
 
-  handleKeyUp = e => {
+  handleKeyUp = (e) => {
     switch (e.key) {
       case " ":
         this.dispatch({ type: "SET_MODIFIER", key: "spaceKey", value: false });
@@ -118,7 +118,7 @@ class App extends React.Component {
 
   getActiveDocument = () => {
     return this.getState().documents.views.find(
-      doc => doc.id === this.getState().documents.activeDocument
+      (doc) => doc.id === this.getState().documents.activeDocument
     );
   };
 
@@ -158,27 +158,31 @@ class App extends React.Component {
         <History
           // key="history"
           data={this.getActiveCanvas().history}
-          dispatch={a => this.dispatch(a, this.getActiveDocument().canvas)}
-          showSnapshots
+          dispatch={(a) => this.dispatch(a, this.getActiveDocument().canvas)}
+        />
+        <Snapshots
+          // key="history"
+          data={this.getActiveCanvas().history}
+          dispatch={(a) => this.dispatch(a, this.getActiveDocument().canvas)}
         />
         <CanvasProperties
           // key="canvasProperites"
           canvas={this.getActiveCanvas()}
-          dispatch={a => this.dispatch(a, this.getActiveDocument().canvas)}
+          dispatch={(a) => this.dispatch(a, this.getActiveDocument().canvas)}
         />
         <Palette
           // key="palette"
           minHeight={40}
           palette={this.getToolsState().palette}
           selected={this.getToolsState().selectedColor}
-          dispatch={a => this.dispatch(a, this.getActiveDocument().canvas)}
+          dispatch={(a) => this.dispatch(a, this.getActiveDocument().canvas)}
         />
         <Layers
           // key="palette"
           minHeight={40}
           palette={this.getToolsState().palette}
           selected={this.getToolsState().selectedColor}
-          dispatch={a => this.dispatch(a, this.getActiveDocument().canvas)}
+          dispatch={(a) => this.dispatch(a, this.getActiveDocument().canvas)}
         />
       </>
     ).props.children;
@@ -189,25 +193,24 @@ class App extends React.Component {
       <Window
         events={{
           keydown: this.handleKeyDown,
-          keyup: this.handleKeyUp
+          keyup: this.handleKeyUp,
         }}
       >
         <div
           className={css.App}
           style={{
             display: "flex",
-            flexDirection: "column"
-
+            flexDirection: "column",
             // Dark Theme
           }}
         >
           <MenuBar
             dispatch={this.dispatch}
             widgets={this.getWidgets()
-              .filter(widget => !widget.props.unhidable)
-              .map(widget => ({
+              .filter((widget) => !widget.props.unhidable)
+              .map((widget) => ({
                 id: widget.props.id,
-                title: widget.props.title
+                title: widget.props.title,
               }))}
             hidden={this.getState().widgets.hidden}
           />
@@ -219,14 +222,15 @@ class App extends React.Component {
                 dispatch={this.dispatch}
                 tool={this.getCurrentTool()}
                 view={this.getState().documents.views.findIndex(
-                  view => view.id === this.getState().documents.activeDocument
+                  (view) => view.id === this.getState().documents.activeDocument
                 )}
               />
               <div
                 style={{
                   flexGrow: 1,
                   overflow: "hidden",
-                  display: "flex"
+                  display: "flex",
+                  flexDirection: "row",
                 }}
               >
                 <ToolBar
@@ -236,20 +240,21 @@ class App extends React.Component {
                 <div
                   style={{
                     flexGrow: 1,
-                    // maxWidth: "100%"
                     maxWidth: `calc(100% - 47px)`,
-                    margin: "1px 0 0 1px"
+
+                    margin: "1px 0 0 1px",
+                    // margin: 3,
                   }}
                 >
                   <Dockable
                     initialState={this.getState().workspace}
-                    onUpdate={workspace =>
+                    onUpdate={(workspace) =>
                       this.dispatch({
                         type: "SET_WORKSPACE",
-                        workspace: workspace
+                        workspace: workspace,
                       })
                     }
-                    spacing={1}
+                    spacing={3}
                     hidden={this.getState().widgets.hidden}
                   >
                     {this.getWidgets()}
@@ -270,7 +275,7 @@ class App extends React.Component {
 class Test extends React.Component {
   state = {
     externalWindow: null,
-    containerElement: null
+    containerElement: null,
   };
   componentDidMount() {
     const features = "width=800, height=500, left=300, top=200, menubar=no";
@@ -283,7 +288,7 @@ class Test extends React.Component {
 
       // Copy the app's styles into the new window
       const stylesheets = Array.from(document.styleSheets);
-      stylesheets.forEach(stylesheet => {
+      stylesheets.forEach((stylesheet) => {
         const css = stylesheet;
 
         if (stylesheet.href) {
@@ -293,7 +298,7 @@ class Test extends React.Component {
           externalWindow.document.head.appendChild(newStyleElement);
         } else if (css && css.cssRules && css.cssRules.length > 0) {
           const newStyleElement = document.createElement("style");
-          Array.from(css.cssRules).forEach(rule => {
+          Array.from(css.cssRules).forEach((rule) => {
             newStyleElement.appendChild(document.createTextNode(rule.cssText));
           });
           externalWindow.document.head.appendChild(newStyleElement);
@@ -303,7 +308,7 @@ class Test extends React.Component {
 
     this.setState({
       externalWindow: externalWindow,
-      containerElement: containerElement
+      containerElement: containerElement,
     });
   }
   render() {

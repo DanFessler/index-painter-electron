@@ -3,7 +3,7 @@ import InputButton from "./InputButton.jsx";
 
 CanvasProperties.defaultProps = {
   id: "canvasProperites",
-  title: "PROPERTIES"
+  title: "Properties"
 };
 
 function CanvasProperties({ dispatch, canvas, title }) {

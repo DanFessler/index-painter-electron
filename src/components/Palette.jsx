@@ -6,7 +6,7 @@ class Palette extends React.Component {
   // return <div className={css.palettePanel}>{palette}</div>;
   static defaultProps = {
     id: "palette",
-    title: "PALETTE"
+    title: "Palette"
   };
 
   handleSelect = i => {

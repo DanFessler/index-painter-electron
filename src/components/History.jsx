@@ -4,28 +4,28 @@ import * as icons from "../icons";
 import css from "./css/History.module.css";
 
 class History extends React.Component {
-  onClick = i => {
+  onClick = (i) => {
     this.props.dispatch({
       type: "JUMP",
-      index: i
+      index: i,
     });
   };
 
   static defaultProps = {
     id: "history",
-    title: "HISTORY",
-    actions: widget => [
+    title: "History",
+    actions: (widget) => [
       {
         type: "actions",
         actions: {
           "Save Snapshot": () => {
             widget.props.dispatch({
-              type: "SAVE"
+              type: "SAVE",
             });
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   };
 
   render() {
@@ -42,7 +42,7 @@ class History extends React.Component {
                 className={[
                   css.actionRow,
                   i > this.props.data.pointer && css.inactive,
-                  i === this.props.data.pointer && css.selected
+                  i === this.props.data.pointer && css.selected,
                 ].join(" ")}
                 onClick={() => this.onClick(i)}
               >
@@ -55,7 +55,7 @@ class History extends React.Component {
                           : "white",
                       width: 16,
                       height: 16,
-                      marginRight: 8
+                      marginRight: 8,
                     }}
                   />
                 ) : null}
@@ -70,10 +70,27 @@ class History extends React.Component {
 }
 
 export class Snapshots extends React.Component {
-  onSnapshotClick = i => {
+  static defaultProps = {
+    id: "snapshots",
+    title: "Snapshots",
+    actions: (widget) => [
+      {
+        type: "actions",
+        actions: {
+          "Save Snapshot": () => {
+            widget.props.dispatch({
+              type: "SAVE",
+            });
+          },
+        },
+      },
+    ],
+  };
+
+  onSnapshotClick = (i) => {
     this.props.dispatch({
       type: "JUMP_SAVED",
-      index: i
+      index: i,
     });
   };
 
@@ -81,7 +98,7 @@ export class Snapshots extends React.Component {
     this.props.dispatch({
       type: "RENAME_SAVED",
       name: name,
-      index: i
+      index: i,
     });
   };
 
@@ -95,7 +112,7 @@ export class Snapshots extends React.Component {
               key={i}
               index={i}
               onClick={() => this.onSnapshotClick(i)}
-              onRename={name => this.onSnapshotRename(i, name)}
+              onRename={(name) => this.onSnapshotRename(i, name)}
               selected={i === this.props.data.savedPointer}
             />
           );
@@ -140,16 +157,16 @@ class EditableText extends React.Component {
     this.inputRef.current.focus();
   }
 
-  beginEdit = e => {
+  beginEdit = (e) => {
     this.inputRef.current.select();
     this.setState({ editing: true });
   };
 
-  endEdit = e => {
+  endEdit = (e) => {
     this.setState({ editing: false });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     if (e.key === "Enter") this.endEdit(e);
   };
 
@@ -162,7 +179,7 @@ class EditableText extends React.Component {
         value={this.props.value}
         ref={this.inputRef}
         style={{ display: !this.state.editing && "none" }}
-        onChange={e => {
+        onChange={(e) => {
           this.props.onChange(e.target.value);
         }}
         onKeyDown={this.handleSubmit}
@@ -173,7 +190,7 @@ class EditableText extends React.Component {
         style={{ display: this.state.editing && "none" }}
       >
         {this.props.value}
-      </span>
+      </span>,
     ];
   }
 }

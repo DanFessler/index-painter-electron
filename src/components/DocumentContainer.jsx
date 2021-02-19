@@ -6,28 +6,30 @@ import Document from "./Document.jsx";
 class DocumentContainer extends React.Component {
   static defaultProps = {
     title: "Documents",
-    id: "documents"
+    id: "documents",
   };
 
   render() {
     let { state, dispatch, currentTool } = this.props;
     // console.log(state, dispatch);
     return (
-      <div style={{ display: "flex", flexGrow: 1 }}>
+      <div
+        style={{ display: "flex", flexGrow: 1, width: "100%", height: "100%" }}
+      >
         <Dockable
           initialState={state.documents.workspace}
-          onUpdate={workspace => {
+          onUpdate={(workspace) => {
             dispatch({
               type: "SET_DOCUMENT_WORKSPACE",
-              value: workspace
+              value: workspace,
             });
           }}
-          spacing={1}
+          spacing={3}
           active={state.documents.activeDocument}
-          onActive={documentId => {
+          onActive={(documentId) => {
             dispatch({
               type: "SET_ACTIVE_DOCUMENT",
-              value: documentId
+              value: documentId,
             });
           }}
           hideMenus
@@ -43,7 +45,7 @@ class DocumentContainer extends React.Component {
                 view.canvasPos.zoom * 100
               )}%`}
               index={i}
-              onClose={id => dispatch({ type: "CLOSE_DOCUMENT", id })}
+              onClose={(id) => dispatch({ type: "CLOSE_DOCUMENT", id })}
               active={view.id === state.documents.activeDocument}
               closeable
               appState={state}

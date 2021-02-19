@@ -5,11 +5,10 @@
   text-align: left; */
   display: flex;
   flex-direction: column;
-  padding: 4px;
 }
 
 .snapshotsContainer {
-  border-bottom: 1px solid #333;
+  /* border-bottom: 1px solid #333; */
   margin-bottom: 4px;
   /* box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.125) inset; */
   /* box-shadow: 0 0px 3px rgba(0, 0, 0, 0.5); */
@@ -21,7 +20,7 @@
 }
 
 .snapshotRow {
-  /* border-bottom: 1px solid #3a3a3a; */
+  border-bottom: 1px solid #3a3a3a;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -40,11 +39,10 @@
 .actionRow {
   cursor: pointer;
   padding: 6px 8px;
-  /* border-bottom: 1px solid #3a3a3a; */
+  border-bottom: 1px solid #3a3a3a;
   display: flex;
   align-items: center;
   color: var(--text);
-  border-radius: 4px;
 }
 
 .selected {

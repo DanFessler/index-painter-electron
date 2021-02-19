@@ -17,17 +17,17 @@ const workspaceReducer = createReducer(
             backgroundColor: "transparent",
             margin: 0,
             boxShadow: "none",
-            borderRadius: 0
-          }
+            borderRadius: 0,
+          },
         },
         {
           selected: 0,
           widgets: ["palette"],
           minSize: 68,
-          size: 68
-        }
+          size: 68,
+        },
       ],
-      maxSize: 0
+      maxSize: 0,
     },
     {
       size: 500,
@@ -36,18 +36,18 @@ const workspaceReducer = createReducer(
         {
           selected: 0,
           widgets: ["preview", "canvasProperites"],
-          size: 320
+          size: 320,
         },
-        { selected: 0, widgets: ["history"] },
-        { selected: 0, widgets: ["layers"] }
+        { selected: 0, widgets: ["history", "snapshots"] },
+        { selected: 0, widgets: ["layers"] },
       ],
-      maxSize: 0
-    }
+      maxSize: 0,
+    },
   ],
   {
     SET_WORKSPACE: (state, action) => {
       return action.workspace;
-    }
+    },
   }
 );
 
