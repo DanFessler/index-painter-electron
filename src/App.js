@@ -322,4 +322,99 @@ class Test extends React.Component {
   }
 }
 
-export default observer(App);
+class Layer {
+  constructor(width, height) {
+    this.canvas = document.createElement("canvas");
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.ctx = this.canvas.getContext("2d");
+  }
+}
+
+class Test2 extends React.Component {
+  state = { layers: [], painting: false };
+
+  componentDidMount() {
+    this.addLayer(320, 240, 100);
+    this.addLayer(320, 240, 200);
+  }
+
+  addLayer(width, height, x) {
+    this.setState((state) => {
+      const newLayers = [...state.layers];
+      const layer = new Layer(width, height);
+
+      // layer.ctx.fillRect(10, 10, 40, 40);
+
+      // let gradient;
+      // gradient = layer.ctx.createRadialGradient(x, 100, 0, x, 100, 100);
+      // gradient.addColorStop(0, "black");
+      // gradient.addColorStop(1, "transparent");
+      // layer.ctx.fillStyle = gradient;
+      // layer.ctx.fillRect(0, 0, layer.canvas.width, layer.canvas.height);
+
+      newLayers.push(layer);
+      return { ...state, layers: newLayers };
+    });
+  }
+
+  startPaint = () => {
+    this.setState({ painting: true });
+  };
+
+  paint = (e) => {
+    if (this.state.painting) {
+      console.log("painting");
+      this.state.layers[0].fillStyle = "black";
+      this.state.layers[0].ctx.fillRect(e.clientX, e.clientY, 10, 10);
+    }
+  };
+
+  stopPaint = () => {
+    this.setState({ painting: false });
+  };
+
+  render() {
+    return (
+      <div
+        onMouseDown={this.startPaint}
+        onMouseMove={this.paint}
+        onMouseUp={this.stopPaint}
+      >
+        {this.state.layers.map((layer) => (
+          <CanvasLayer layer={layer} painting={this.state.painting} />
+        ))}
+      </div>
+    );
+  }
+}
+
+class CanvasLayer extends React.Component {
+  containerRef = createRef();
+  componentDidUpdate() {
+    // this.containerRef.current.appendChild(this.props.layer.canvas);
+    const ctx = this.containerRef.current.getContext("2d");
+    console.log(ctx);
+    const data = this.props.layer.ctx.getImageData(
+      0,
+      0,
+      this.props.layer.canvas.width,
+      this.props.layer.canvas.height
+    );
+    ctx.putImageData(data, 0, 0);
+  }
+  render() {
+    return (
+      <canvas
+        width={this.props.layer.canvas.width}
+        height={this.props.layer.canvas.height}
+        ref={this.containerRef}
+        style={{ position: "absolute" }}
+      >
+        {this.props.painting}
+      </canvas>
+    );
+  }
+}
+
+export default observer(Test2);
