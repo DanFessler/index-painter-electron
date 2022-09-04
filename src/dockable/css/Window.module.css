@@ -15,7 +15,7 @@
   position: relative;
   overflow: hidden;
   flex-grow: 1;
-  box-shadow: 0 0px 1px RGBA(0, 0, 0, 0.5);
+  /* box-shadow: 0 0px 1px RGBA(0, 0, 0, 0.5); */
   /* border: 1px solid rgba(0, 0, 0, 0.5); */
   border-radius: var(--windowRadius);
   background-color: var(--primary);
@@ -54,7 +54,7 @@
   /* box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.125) inset; */
   /* background: linear-gradient(180deg, #353535, var(--secondary) 100%); */
   overflow: hidden;
-  /* border-bottom: 2px solid var(--primary); */
+  /* border-bottom: 4px solid var(--primary); */
 }
 
 .tabBarHover::after {
@@ -84,6 +84,7 @@
   /* line-height: 21px; */
   box-sizing: border-box;
   border-width: 1px 1px 0px 1px;
+  border-width: 0;
   border-style: solid;
   border-left-color: transparent;
   border-right-color: transparent;
@@ -93,16 +94,38 @@
   cursor: pointer;
   /* border-radius: 3px 3px 0 0; */
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
   justify-content: center;
   align-items: center;
 }
 .tab.active {
   color: var(--text);
   background-color: var(--primary);
-  border-top-color: RGBA(255, 255, 255, 0.03);
-  /* border-radius: 2px; */
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+  /* border-top-color: RGBA(255, 255, 255, 0.03); */
+  border-radius: var(--windowRadius) var(--windowRadius) 0 0;
+  /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.75); */
+  position: relative;
+}
+
+.tab.active::before{
+  content: "";
+  position: absolute;
+  width: var(--windowRadius);
+  height: var(--windowRadius);
+  bottom:0;
+  right:calc(0px - var(--windowRadius));
+  background-color: var(--primary);
+  -webkit-mask-image: radial-gradient(circle 10px at var(--windowRadius) 0, transparent 0, transparent calc(var(--windowRadius) - 1px), black calc(var(--windowRadius) + 0px));
+}
+.tab.active::after{
+  content: "";
+  position: absolute;
+  width: var(--windowRadius);
+  height: var(--windowRadius);
+  bottom:0;
+  left:calc(0px - var(--windowRadius));
+  background-color: var(--primary);
+  -webkit-mask-image: radial-gradient(circle 10px at 0 0, transparent 0, transparent calc(var(--windowRadius) - 1px), black calc(var(--windowRadius) + 0px));
 }
 
 .tab:not(.active):hover {

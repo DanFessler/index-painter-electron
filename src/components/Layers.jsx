@@ -52,7 +52,7 @@ class Layers extends React.Component {
               key={i}
               className={[
                 css.layerRow,
-                this.props.selected === i ? css.selected : ""
+                this.props.selected === i ? css.selected : "",
               ].join(" ")}
               onClick={() => this.props.onSelect(i)}
             >
@@ -60,7 +60,7 @@ class Layers extends React.Component {
               <div style={{ flexGrow: 1, textAlign: "left" }}>{layer.name}</div>
               <div
                 className={css.visibility}
-                onClick={e => {
+                onClick={(e) => {
                   this.props.onVisibilityToggle(i);
                   e.stopPropagation();
                 }}
@@ -68,7 +68,7 @@ class Layers extends React.Component {
                 <EyeIcon
                   style={{
                     width: 16,
-                    fill: layer.visible ? "white" : "rgba(255,255,255,0.125)"
+                    fill: layer.visible ? "white" : "rgba(255,255,255,0.125)",
                   }}
                 />
               </div>

@@ -32,7 +32,7 @@ class Window extends Component {
     ];
     let size = widget.props.minHeight ? widget.props.minHeight : 0;
     return (
-      size + 34 // content size // tab bar
+      size + 34 + 4 // content size // tab bar
     );
   };
   handleContextClick = (e) => {

@@ -19,8 +19,9 @@ function createWindow() {
     transparent: false,
     webPreferences: {
       nodeIntegration: true,
-      nativeWindowOpen: true
-    }
+      nativeWindowOpen: true,
+    },
+    backgroundColor: "#4b4b4b",
   });
 
   // Load from localhost if in development

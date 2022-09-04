@@ -4,7 +4,7 @@
   /* height: 45px;
   align-items: stretch; */
   display: flex;
-  /* margin-bottom: 1px; */
+  margin-bottom: 1px;
   align-items: center;
   /* margin: 2px; */
   border-radius: var(--windowRadius);

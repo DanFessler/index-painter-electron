@@ -2,5 +2,5 @@
     "workbench.tree.indent": 18,
     "workbench.tree.renderIndentGuides": "none",
     "editor.fontFamily": "Menlo, Consolas, DejaVu Sans Mono, monospace, Fira Code",
-    "editor.renderIndentGuides": false
+    "editor.guides.indentation": false
 }

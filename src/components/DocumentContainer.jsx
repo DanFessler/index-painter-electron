@@ -32,7 +32,7 @@ class DocumentContainer extends React.Component {
               value: documentId,
             });
           }}
-          hideMenus
+          // hideMenus
           hideTabs={state.documents.views.length <= 1}
         >
           {state.documents.views.map((view, i) => (
